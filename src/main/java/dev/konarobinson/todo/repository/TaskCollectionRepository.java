@@ -7,40 +7,40 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import dev.konarobinson.todo.model.Content;
-import dev.konarobinson.todo.model.Status;
-import dev.konarobinson.todo.model.Type;
+import dev.konarobinson.todo.model.TaskRecord;
+import dev.konarobinson.todo.model.TaskStatus;
+import dev.konarobinson.todo.model.TaskType;
 import jakarta.annotation.PostConstruct;
 
 @Repository
-public class ContentCollectionRepository {
+public class TaskCollectionRepository {
 
-    private final List<Content> contentList = new ArrayList<>();
+    private final List<TaskRecord> contentList = new ArrayList<>();
 
-    public ContentCollectionRepository() {
+    public TaskCollectionRepository() {
     }
 
-    public List<Content> findAll() {
+    public List<TaskRecord> findAll() {
         return contentList;
     }
 
-    public Optional<Content> findById(Integer id) {
+    public Optional<TaskRecord> findById(Integer id) {
         return contentList.stream().filter(c -> c.id().equals(id)).findFirst();
     }
 
     
-    public void save(Content content) {
+    public void save(TaskRecord content) {
         contentList.add(content);
     }
     
     @PostConstruct
     private void init() {
-        Content content = new Content(
+        TaskRecord content = new TaskRecord(
             1, 
             "Test Task 1",
             "Decription for Test Task 1",
-            Status.TO_DO,
-            Type.FEATURE,
+            TaskStatus.TO_DO,
+            TaskType.FEATURE,
             LocalDateTime.now(),
             null,
             ""

@@ -1,6 +1,6 @@
 package dev.konarobinson.todo.model;
 
-public enum Type {
+public enum TaskType {
     BUG,
     FEATURE,
     REFACTOR
