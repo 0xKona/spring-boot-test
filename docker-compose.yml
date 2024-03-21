@@ -3,38 +3,17 @@ version: '3.8'
 services:
   database:
     image: mysql:8.1
-    restart: unless-stopped
+    hostname: database
+    restart: always
     environment:
-      MYSQL_DATABASE: "spring_db"
-      MYSQL_ROOT_PASSWORD: "password"
+      - "MYSQL_DATABASE=spring_db"
+      - "MYSQL_USER=spring_db"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_ROOT_PASSWORD=password"
     ports: 
-      - 5432:5432
+      - "3306:3306"
     volumes:
       - spring_db:/var/lib/mysql
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 volumes:
   spring_db:
-
-
-
-# version: '3.8'
-# services:
-#   database:
-#     image: mysql:8.1
-#     restart: unless-stopped
-#     environment:
-#       - MYSQL_DATABASE=ktf_db
-#       - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_pw
-#     secrets:
-#       - db_root_pw
-#     ports:
-#       - 3306:3306
-#     volumes:
-#       - ktf_db:/var/lib/mysql
-#       - ./server/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-# secrets:
-#   db_root_pw:
-#     file: ./server/secrets/db_root_pw.txt
-
-# volumes:
-#   ktf_db:

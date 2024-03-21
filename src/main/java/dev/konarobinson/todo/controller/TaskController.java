@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.konarobinson.todo.model.TaskRecord;
 import dev.konarobinson.todo.repository.TaskCollectionRepository;
+import dev.konarobinson.todo.repository.TaskRepository;
 import jakarta.validation.Valid;
 
 @RestController
@@ -24,9 +25,9 @@ import jakarta.validation.Valid;
 @CrossOrigin //default config
 public class TaskController {
 
-    private final TaskCollectionRepository repository;
+    private final TaskRepository repository;
 
-    public TaskController(TaskCollectionRepository repository) {
+    public TaskController(TaskRepository repository) {
         this.repository = repository;
     }
 
@@ -59,7 +60,7 @@ public class TaskController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}") //deletes Task by Id in url
     public void delete(@PathVariable Integer id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
     
 }
