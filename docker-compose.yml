@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:8.1
+    hostname: database
+    restart: always
+    environment:
+      - "MYSQL_DATABASE=spring_db"
+      - "MYSQL_USER=spring_db"
+      - "MYSQL_PASSWORD=password"
+      - "MYSQL_ROOT_PASSWORD=password"
+    ports: 
+      - "3306:3306"
+    volumes:
+      - spring_db:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+volumes:
+  spring_db:
