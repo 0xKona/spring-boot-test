@@ -1,12 +1,31 @@
 import styled from "styled-components";
 import { TaskDataInterface } from "../types/types";
+import { Button } from "../styles/global-styled-components";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
+import Container from "./task-card-container";
 
-const Container = styled.div`
-    width: 400px;
-    height: 150px;
-    border-radius: 15px;
-    padding: 10px;
-    background-color: orange;
+const DataContainer = styled.div`
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* background-color: red; */
+`
+const CardButton = styled(Button)`
+    height: 50%;
+    background-color: transparent;
+    transition: all .15s ease-in-out;
+    &:hover{
+        background-color: rgba(82, 82, 82, 0.39);
+    }
+`
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    padding-top: auto;
 `
 
 interface props {
@@ -39,13 +58,16 @@ const TaskCardComponent = ({loadTasks, taskData, setTaskForm}: props): JSX.Eleme
 
     return (
         <Container>
-            <p>{taskData.title}</p>
-            <p>{taskData.description}</p>
-            <p>{taskData.status}</p>
-            <p>{taskData.type}</p>
+            <DataContainer>
+                <p>{taskData.title}</p>
+                <p>{taskData.description}</p>
+                <p>{taskData.status}</p>
+            </DataContainer>
+            <ButtonContainer>
+                <CardButton onClick={handleDelete}><RiDeleteBin6Line size={20}/></CardButton>
+                <CardButton onClick={openTaskMenu}><FaEdit size={20}/></CardButton>
+            </ButtonContainer>
 
-            <button onClick={handleDelete}>{"Delete This Tasks [No Going Back]"}</button>
-            <button onClick={openTaskMenu}>Edit Task</button>
         </Container>
     )
 }

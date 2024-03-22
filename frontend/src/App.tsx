@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import TaskCardComponent from './components/task-card-component';
 import styled from 'styled-components';
 import TaskForm from './components/task-form';
-import { GlobalStyle } from './global-styles';
-import { Button } from './global-styled-components';
+import { GlobalStyle } from './styles/global-styles';
+import { Button } from './styles/global-styled-components';
 
 const AppContainer = styled.div`
   display: flex;
@@ -16,14 +16,24 @@ const AppContainer = styled.div`
 const TasksContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 65%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 `
 
 const ButtonContainer = styled.div`
   margin-top: 20px;
+  padding-right: 20px;
   width: 420px;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
+`
+
+const Title = styled.h1`
+  color: white;
+  margin: 20px;
 `
 
 const App = (): JSX.Element => {
@@ -52,7 +62,7 @@ const App = (): JSX.Element => {
       <GlobalStyle />
       <AppContainer>
         {taskForm.open && <TaskForm loadTasks={loadTasks} taskForm={taskForm} setTaskForm={setTaskForm}/>}
-        <h1>All Tasks</h1>
+        <Title>All Tasks</Title>
 
         <TasksContainer>
           <ButtonContainer>
