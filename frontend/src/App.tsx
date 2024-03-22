@@ -3,6 +3,7 @@ import TaskCardComponent from './components/task-card-component';
 import styled from 'styled-components';
 import TaskForm from './components/task-form';
 import { GlobalStyle } from './global-styles';
+import { Button } from './global-styled-components';
 
 const AppContainer = styled.div`
   display: flex;
@@ -18,7 +19,8 @@ const TasksContainer = styled.div`
 `
 
 const ButtonContainer = styled.div`
-  background-color: lightblue;
+  margin-top: 20px;
+  width: 420px;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
@@ -54,7 +56,7 @@ const App = (): JSX.Element => {
 
         <TasksContainer>
           <ButtonContainer>
-            <button onClick={() => setTaskForm({open: true, data: null})}>New Task</button>
+            <Button onClick={() => setTaskForm({open: true, data: null})}>New Task</Button>
           </ButtonContainer>
           {allTasks && allTasks.map((taskData: any) => (
             <TaskCardComponent key={taskData.id} loadTasks={loadTasks} taskData={taskData} setTaskForm={setTaskForm}/>

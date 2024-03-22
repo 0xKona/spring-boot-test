@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
 import moment from 'moment';
+import { Button } from "../global-styled-components";
 
 const Wrapper = styled.div`
     margin: 0;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: pink;
+    background-color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +21,12 @@ const FormContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: whitesmoke;
+    background: rgba(0, 47, 255, 0.42);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.8px);
+    -webkit-backdrop-filter: blur(6.8px);
+    border: 1px solid rgba(0, 47, 255, 0.3);
 `
 
 const TaskForm = ({loadTasks, taskForm, setTaskForm} : any): JSX.Element => {
@@ -99,8 +106,8 @@ const TaskForm = ({loadTasks, taskForm, setTaskForm} : any): JSX.Element => {
 
                     <input placeholder="Task Url" value={taskData.url} onChange={(e) => setTaskData({...taskData, url: e.target.value})}/>
                 </>
-                <button onClick={handleSubmit}>{taskForm.data ? "Submit Changes" : "Submit New Task"}</button>
-                <button onClick={() => setTaskForm({open: false, data: null})}>Close Form</button>
+                <Button onClick={handleSubmit}>{taskForm.data ? "Submit Changes" : "Submit New Task"}</Button>
+                <Button onClick={() => setTaskForm({open: false, data: null})}>Close Form</Button>
             </FormContainer>
         </Wrapper>
     )
