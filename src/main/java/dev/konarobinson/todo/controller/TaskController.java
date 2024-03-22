@@ -1,5 +1,6 @@
 package dev.konarobinson.todo.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import dev.konarobinson.todo.model.TaskRecord;
-import dev.konarobinson.todo.repository.TaskCollectionRepository;
 import dev.konarobinson.todo.repository.TaskRepository;
 import jakarta.validation.Valid;
 
@@ -31,32 +31,36 @@ public class TaskController {
         this.repository = repository;
     }
 
-    @GetMapping("") // get request to /api/content
-    public List<TaskRecord> findAll() {
+    @GetMapping("") // get request to /api/tasks
+    public Iterable<TaskRecord> findAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/{id}") // Get Mapping is a get request to the class http, in this case /api/content/{id}
+    @SuppressWarnings("null")
+    @GetMapping("/{id}") // Get Mapping is a get request to the class http, in this case /api/tasks/{id}
     public TaskRecord findById(@PathVariable Integer id) {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found!"));
     }
 
+    @SuppressWarnings("null")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("") //post request to /api/content
-    public void create(@Valid @RequestBody TaskRecord content) {
-        repository.save(content);
+    public void create(@RequestBody TaskRecord task) {
+        repository.save(task);
     }
 
+    @SuppressWarnings("null")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}") //Updates Task by Id in url
-    public void update(@RequestBody TaskRecord content, @PathVariable Integer id) {
+    public void update(@RequestBody TaskRecord task, @PathVariable Integer id) {
         if (repository.existsById(id)) {
-            repository.save(content);
+            repository.save(task);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found!");
         }
     }
 
+    @SuppressWarnings("null")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}") //deletes Task by Id in url
     public void delete(@PathVariable Integer id) {

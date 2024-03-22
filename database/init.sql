@@ -23,11 +23,11 @@ USE `spring_db` ;
 CREATE TABLE IF NOT EXISTS `spring_db`.`tasks` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(120) NULL,
-  `desc` VARCHAR(500) NULL,
+  `description` VARCHAR(500) NULL,
   `status` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL,
-  `dateCreated` VARCHAR(45) NULL,
-  `dateUpdated` VARCHAR(45) NULL,
+  `date_created` VARCHAR(45) NULL,
+  `date_updated` VARCHAR(45) NULL,
   `url` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
