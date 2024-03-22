@@ -1,16 +1,40 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import TaskCardComponent from './components/task-card-component';
+import styled from 'styled-components';
+import TaskForm from './components/task-form';
+import { GlobalStyle } from './global-styles';
 
-function App() {
-  const [count, setCount] = useState(0);
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`
 
+const TasksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const ButtonContainer = styled.div`
+  background-color: lightblue;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+`
+
+const App = (): JSX.Element => {
+
+  const [allTasks, setAllTasks] = useState([]);
+  const [taskForm, setTaskForm] = useState({open: false, data: null})
+  
   const loadTasks = async() => {
     try {
       const response = await fetch('http://127.0.0.1:8080/api/tasks');
       const data = await response.json();
-      console.log(data);
+      console.log('All Tasks :: ', data)
+      setAllTasks(data);
 
     } catch (error) {
       console.log(error)
@@ -23,27 +47,22 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <GlobalStyle />
+      <AppContainer>
+        {taskForm.open && <TaskForm loadTasks={loadTasks} taskForm={taskForm} setTaskForm={setTaskForm}/>}
+        <h1>All Tasks</h1>
+
+        <TasksContainer>
+          <ButtonContainer>
+            <button onClick={() => setTaskForm({open: true, data: null})}>New Task</button>
+          </ButtonContainer>
+          {allTasks && allTasks.map((taskData: any) => (
+            <TaskCardComponent key={taskData.id} loadTasks={loadTasks} taskData={taskData} setTaskForm={setTaskForm}/>
+          ))}
+        </TasksContainer>
+      </AppContainer>
     </>
+
   )
 }
 

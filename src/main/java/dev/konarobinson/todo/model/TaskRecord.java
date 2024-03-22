@@ -35,19 +35,30 @@ public class TaskRecord {
     @Enumerated(EnumType.STRING)
     private TaskType taskType;
     
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+    @JsonProperty("date_created")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_created")
-    private LocalDateTime dateCreated;
+    private LocalDateTime date_created;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+    @JsonProperty("date_updated")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_updated")
-    private LocalDateTime dateUpdated;
+    private LocalDateTime date_updated;
 
     @JsonProperty("url")
     @Column(name = "url")
     private String url;
 
     public TaskRecord() {
+    }
+
+    // Getters and setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

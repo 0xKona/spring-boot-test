@@ -1,8 +1,5 @@
 package dev.konarobinson.todo.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.konarobinson.todo.model.TaskRecord;
 import dev.konarobinson.todo.repository.TaskRepository;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -54,6 +50,7 @@ public class TaskController {
     @PutMapping("/{id}") //Updates Task by Id in url
     public void update(@RequestBody TaskRecord task, @PathVariable Integer id) {
         if (repository.existsById(id)) {
+            task.setId(id);
             repository.save(task);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found!");
