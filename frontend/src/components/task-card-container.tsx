@@ -9,7 +9,6 @@ const StyledContainer = styled.div`
     margin-bottom: 10px;
     transition: all .15s ease-in-out;
     background-color: whitesmoke;
-    transition: all .15s ease-in-out;
     &:hover{
          transform: scale(1.05);
     }

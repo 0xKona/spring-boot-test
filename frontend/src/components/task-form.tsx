@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import moment from 'moment';
-import { Button } from "../styles/global-styled-components";
+import { Button, muiStyles } from "../styles/global-styled-components";
 import { MenuItem, TextField } from "@mui/material";
+import { AiOutlineCloseSquare } from "react-icons/ai";
+import { taskStatusOptions, taskTypes } from "../utils/dropdown-options";
 
 const Wrapper = styled.div`
     margin: 0;
@@ -21,14 +23,27 @@ const FormContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background: rgba(255, 255, 255, 0.72);
-    /* border-radius: 16px; */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
 `
 const ButtonContainer = styled.div`
+    margin-top: 15px;
+    width: 100%;
     display: flex;
+    justify-content: flex-end;
+`
+const CloseButton = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px;
+    cursor: pointer;
+    color: grey;
+    &:hover{
+        color: darkgrey;
+    }
 `
 
 const TaskForm = ({loadTasks, taskForm, setTaskForm} : any): JSX.Element => {
@@ -42,9 +57,7 @@ const TaskForm = ({loadTasks, taskForm, setTaskForm} : any): JSX.Element => {
         taskForm.data ??
             {title: '', description: '', status: 'TO_DO', taskType: "BUG"}
     );
-    console.log(taskData)
-    const taskTypes = ['BUG', 'FEATURE', 'REFACTOR'];
-    const taskStatusOptions = ['TO_DO', 'IN_PROGRESS', 'IN_REVIEW', 'COMPLETED'];
+    console.log('Task Data: ', taskData)
 
     const submitNewTask = async() => {
         try {
@@ -93,32 +106,45 @@ const TaskForm = ({loadTasks, taskForm, setTaskForm} : any): JSX.Element => {
     return (
         <Wrapper>
             <FormContainer>
+                <CloseButton onClick={() => setTaskForm({open: false, data: null})}>
+                    <AiOutlineCloseSquare size={30}/>
+                </CloseButton>
                 <h2>{taskForm.data ? `Editing ${taskForm.data.title}` : "New Task"}</h2>
                 <>  
-                    <TextField label="Task Name" value={taskData.title} onChange={(e) => setTaskData({...taskData, title: e.target.value})}/>
+                    <TextField style={muiStyles} label="Task Name" value={taskData.title} onChange={(e) => setTaskData({...taskData, title: e.target.value})}/>
                     
-                    <TextField label="Task Description" multiline rows={4} value={taskData.description} onChange={(e) => setTaskData({...taskData, description: e.target.value})}/>
+                    <TextField style={muiStyles} label="Task Description" multiline rows={4} value={taskData.description} onChange={(e) => setTaskData({...taskData, description: e.target.value})}/>
                     
-                    <TextField style={{width: '100%'}} value={taskData.status} select label="Task Status" onInput={(e) => setTaskData({...taskData, status: (e.target as HTMLSelectElement).value})}>
-                        {taskStatusOptions.map((option: any) => (
-                            <MenuItem key={option} value={option.value}>
+                    <TextField
+                        style={muiStyles}
+                        value={taskData.status}
+                        select
+                        label="Task Status"
+                        onChange={(e) => setTaskData({ ...taskData, status: e.target.value })}
+                    >
+                        {taskStatusOptions.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
+                    <TextField
+                        style={muiStyles}
+                        value={taskData.taskType}
+                        select
+                        label="Task Type"
+                        onChange={(e) => setTaskData({ ...taskData, taskType: e.target.value })}
+                    >
+                        {taskTypes.map((option) => (
+                            <MenuItem key={option} value={option}>
                                 {option}
                             </MenuItem>
                         ))}
                     </TextField>
                     
-                    <TextField style={{width: '100%'}} value={taskData.taskType} select label="Task Type" onChange={(e) => setTaskData({ ...taskData, taskType: e.target.value })}>
-                        {taskTypes.map((option: any) => (
-                            <MenuItem key={option} value={option.value}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    
-                    <TextField label="Url" value={taskData.url} onChange={(e) => setTaskData({...taskData, url: e.target.value})}/>
                 </> 
                 <ButtonContainer>
-                    <Button onClick={() => setTaskForm({open: false, data: null})}>Close Form</Button>
                     <Button onClick={handleSubmit}>{taskForm.data ? "Submit Changes" : "Submit Task"}</Button>
                 </ButtonContainer>
             </FormContainer>

@@ -4,6 +4,7 @@ import { Button } from "../styles/global-styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import Container from "./task-card-container";
+import { taskStatusOptions } from "../utils/dropdown-options";
 
 const DataContainer = styled.div`
     margin: 10px;
@@ -11,7 +12,6 @@ const DataContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    /* background-color: red; */
 `
 const CardButton = styled(Button)`
     height: 50%;
@@ -36,7 +36,7 @@ interface props {
 
 const TaskCardComponent = ({loadTasks, taskData, setTaskForm}: props): JSX.Element => {
 
-    const handleDelete = async() => {
+    const handleDelete = async(): Promise<void> => {
         try {
             const response = await fetch(`http://127.0.0.1:8080/api/tasks/${taskData.id}`, {
                 method: 'DELETE',
@@ -52,8 +52,13 @@ const TaskCardComponent = ({loadTasks, taskData, setTaskForm}: props): JSX.Eleme
           }
     }
 
-    const openTaskMenu = () => {
+    const openTaskMenu = (): void => {
         setTaskForm({open: true, data: taskData})
+    }
+
+    const getTaskStatus = (value: string): string => {
+        const label = taskStatusOptions.find((option) => option.value === value)
+        return label?.label || "Error getting task status"
     }
 
     return (
@@ -61,7 +66,7 @@ const TaskCardComponent = ({loadTasks, taskData, setTaskForm}: props): JSX.Eleme
             <DataContainer>
                 <p>{taskData.title}</p>
                 <p>{taskData.description}</p>
-                <p>{taskData.status}</p>
+                <p>{getTaskStatus(taskData.status)}</p>
             </DataContainer>
             <ButtonContainer>
                 <CardButton onClick={handleDelete}><RiDeleteBin6Line size={20}/></CardButton>

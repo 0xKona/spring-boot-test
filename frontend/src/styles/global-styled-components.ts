@@ -10,3 +10,9 @@ export const Button = styled.button`
         background-color: darkgrey;
     }
 `
+
+export const muiStyles = {
+    //inline css styling for mui components :'(
+    width: '100%',
+    marginTop: 15,
+}

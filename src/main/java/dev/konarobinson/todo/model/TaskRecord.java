@@ -45,14 +45,10 @@ public class TaskRecord {
     @Column(name = "date_updated")
     private LocalDateTime date_updated;
 
-    @JsonProperty("url")
-    @Column(name = "url")
-    private String url;
-
     public TaskRecord() {
     }
 
-    // Getters and setters
+    // Getters and setters (These allow you to update and delete tasks once set by getting id of individual tasks)
     public Integer getId() {
         return id;
     }

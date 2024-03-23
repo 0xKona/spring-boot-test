@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `spring_db`.`tasks` (
   `type` VARCHAR(45) NULL,
   `date_created` VARCHAR(45) NULL,
   `date_updated` VARCHAR(45) NULL,
-  `url` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
