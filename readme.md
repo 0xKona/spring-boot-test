@@ -1,9 +1,13 @@
+
 # Demo Task List App
 
 A small task list app using a Vite + React TS frontend, Spring-Boot backend and a dockerised mysql database for the purposes of learning Spring-Boot and Java
 
+## Requirements
 
-
+    - NodeJS https://nodejs.org/en
+    - Maven  https://maven.apache.org/
+    - JDK 17 https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 
 ## Installation
 
@@ -34,5 +38,7 @@ Navigate to the frontend, install the dependecies and start the frontend app by 
   npm install
   npm run dev
 ```
+
+    
 
     
