@@ -39,6 +39,15 @@ Navigate to the frontend, install the dependecies and start the frontend app by 
   npm run dev
 ```
 
+## Serving Frontend from Spring Server
+
+```
+  cd frontend
+  npm run build
+```
+
+Restart the Spring-Boot backend and it should use the build to show the website when accessing the root url (By Default: localhost:8080)
+
     
 
     

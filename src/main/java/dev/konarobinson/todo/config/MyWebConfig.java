@@ -14,4 +14,5 @@ public class MyWebConfig {
     public RestTemplate restTemplate() {
         return new RestTemplateBuilder().build();
     }
+    
 }

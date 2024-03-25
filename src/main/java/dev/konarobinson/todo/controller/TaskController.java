@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import dev.konarobinson.todo.model.TaskRecord;
 import dev.konarobinson.todo.repository.TaskRepository;
-
 @RestController
 @RequestMapping("/api/tasks")
 @CrossOrigin //default config

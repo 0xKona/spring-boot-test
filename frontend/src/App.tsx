@@ -9,17 +9,21 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 `
 
 const TasksContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 65%;
+  height: 90%;
+  max-height: 90%;
   overflow-y: scroll;
   overflow-x: hidden;
+`
+const TaskCardContainer = styled.div`
+  height: 80%;
 `
 
 const ButtonContainer = styled.div`
@@ -45,7 +49,6 @@ const App = (): JSX.Element => {
     try {
       const response = await fetch('http://127.0.0.1:8080/api/tasks');
       const data = await response.json();
-      console.log('All Tasks :: ', data)
       setAllTasks(data);
 
     } catch (error) {
@@ -68,9 +71,11 @@ const App = (): JSX.Element => {
           <ButtonContainer>
             <Button onClick={() => setTaskForm({open: true, data: null})}>New Task</Button>
           </ButtonContainer>
-          {allTasks && allTasks.map((taskData: any) => (
-            <TaskCardComponent key={taskData.id} loadTasks={loadTasks} taskData={taskData} setTaskForm={setTaskForm}/>
-          ))}
+          <TaskCardContainer>
+            {allTasks && allTasks.map((taskData: any) => (
+              <TaskCardComponent key={taskData.id} loadTasks={loadTasks} taskData={taskData} setTaskForm={setTaskForm}/>
+            ))}
+          </TaskCardContainer>
         </TasksContainer>
       </AppContainer>
     </>
